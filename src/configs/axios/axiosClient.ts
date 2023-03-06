@@ -2,7 +2,7 @@ import axios from 'axios'
 import getLocalToken from './token'
 
 const axiosClient = axios.create({
-  baseURL: `${process.env.REACT_APP_API}`,
+  baseURL: `${import.meta.env.VITE_API}`,
   headers: {
     Accept: 'application/json',
     'content-type': 'application/json',

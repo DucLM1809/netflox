@@ -18,7 +18,6 @@ interface Route {
 const RequireAuth = ({ children, permission, route }: Props) => {
   const isAuth = useAuth()
   const location = useLocation()
-  console.log(isAuth)
 
   if (!isAuth) {
     return <Navigate to={PATH.LOGIN} state={{ from: location }} replace />
