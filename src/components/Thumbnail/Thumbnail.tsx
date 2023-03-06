@@ -1,3 +1,5 @@
+import { setCurrentMovie, setShowModal } from '../../features/Home/home.slice'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { Movie } from '../../vite-env'
 
 interface Props {
@@ -7,15 +9,15 @@ interface Props {
 }
 
 function Thumbnail({ movie }: Props) {
-  // const [showModal, setShowModal] = useRecoilState(modalState)
-  // const [currentMovie, setCurrentMovie] = useRecoilState(movieState)
+  const dispatch = useAppDispatch()
+
   return (
     <div
       className='relative h-28 min-w-[180px] cursor-pointer transition duration-200 ease-out md:h-36 md:min-w-[260px] md:hover:scale-105'
-      // onClick={() => {
-      //   setCurrentMovie(movie)
-      //   setShowModal(true)
-      // }}
+      onClick={() => {
+        dispatch(setCurrentMovie(movie))
+        dispatch(setShowModal(true))
+      }}
     >
       <img
         src={`https://image.tmdb.org/t/p/w500${

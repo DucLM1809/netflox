@@ -12,9 +12,14 @@ import {
 } from '../../api/api'
 import Banner from '../../components/Banner/Banner'
 import Header from '../../components/Header/Header'
+import ModalMovie from '../../components/Modal/ModalMovie'
 import Row from '../../components/Row/Row'
+import { useAppSelector } from '../../hooks/useAppSelector'
+import { selectShowModal } from './home.slice'
 
 const Home = () => {
+  const showModal = useAppSelector(selectShowModal)
+
   const {
     isLoading: isLoadingNetflixOriginal,
     error: errorLoadingNetflixOriginal,
@@ -104,6 +109,7 @@ const Home = () => {
           <Row title='Documentaries' movies={documentaries} />
         </section>
       </main>
+      {showModal && <ModalMovie />}
     </div>
   )
 }

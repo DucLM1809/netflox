@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@heroicons/react": "^1.0.6",
+    "@mui/material": "^5.9.1",
     "@reduxjs/toolkit": "^1.9.2",
     "@styled-system/theme-get": "^5.1.2",
     "antd": "^5.2.1",
@@ -23,6 +26,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.5",
     "react-icons": "^4.7.1",
+    "react-player": "^2.10.1",
     "react-query": "^3.39.3",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.1",
