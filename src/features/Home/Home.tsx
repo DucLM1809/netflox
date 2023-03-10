@@ -92,6 +92,8 @@ const Home = () => {
   )
     return <>Error...</>
 
+  console.log(import.meta.env.VITE_TEST)
+
   return (
     <div className='relative h-screen bg-gradient-to-b lg:h-[140vh] '>
       <Header />
