@@ -27,12 +27,12 @@ const RequireAuth = ({ children, permission, route }: Props) => {
 }
 
 export const PublicRoutes = ROUTES.PUBLIC.map((route) => {
-  const Component = lazy(() => import(`../pages/${route.element}`))
+  const Component = lazy(() => import(`../pages/${route.element}.tsx`))
   return <Route {...route} element={<Component />} key={route.element} />
 })
 
 export const PrivateRoutes: any = ROUTES.PRIVATE.map((route) => {
-  let Component = lazy(() => import(`../pages/${route.element}`))
+  let Component = lazy(() => import(`../pages/${route.element}.tsx`))
   return (
     <Route
       {...route}
