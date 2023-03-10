@@ -26,6 +26,8 @@ const RequireAuth = ({ children, permission, route }: Props) => {
   return children
 }
 
+// Test something
+
 export const PublicRoutes = ROUTES.PUBLIC.map((route) => {
   const Component = lazy(() => import(`../pages/${route.element}.tsx`))
   return <Route {...route} element={<Component />} key={route.element} />
