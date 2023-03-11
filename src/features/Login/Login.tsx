@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 import Loading from '../../components/Loading/Loading'
 import Toast from '../../components/Toast/Toast'
 import { PATH } from '../../constants/common'
-import { IApiError } from '../../interfaces/IError'
 import { IUser } from '../../interfaces/IUser'
 import AuthService from '../../services/authService'
 
@@ -14,8 +13,8 @@ const Login = () => {
   const navigate = useNavigate()
 
   // MUTATE
-  const { mutate, isError, isLoading, error, isSuccess } = useMutation({
-    mutationKey: 'register',
+  const { mutate, isError, isLoading } = useMutation({
+    mutationKey: 'login',
     mutationFn: (variables: IUser) => AuthService.loginUser(variables),
     onSuccess: () => {
       navigate(PATH.HOME)
@@ -40,7 +39,6 @@ const Login = () => {
   return (
     <div className='relative flex h-screen w-screen flex-col bg-black md:items-center md:justify-center md:bg-transparent'>
       {isError && <Toast severity='error' message='Invalid Credentials!' />}
-      {isSuccess && <Toast severity='success' message='Login Successfully!' />}
       <img
         src='https://rb.gy/p2hphi'
         className='-z-10 !hidden opacity-60 sm:!inline object-cover h-full w-full'

@@ -1,4 +1,4 @@
-import { axiosPost } from '../configs/axios'
+import { axiosDelete, axiosPost } from '../configs/axios'
 import { IToken, IUser } from '../interfaces/IUser'
 import { postRequests } from '../constants/requests'
 import TokenService from './tokenService'
@@ -10,9 +10,10 @@ const loginUser = (data: IUser) =>
   axiosPost(postRequests.login, { ...data }).then((res) => {
     const dataRes: IToken = res.data
     TokenService.setAccessToken(dataRes.access_token)
-    TokenService.setRefreshToken(dataRes.refresh_token)
   })
 
-const AuthService = { registerUser, loginUser }
+const logoutUser = () => axiosDelete(postRequests.login)
+
+const AuthService = { registerUser, loginUser, logoutUser }
 
 export default AuthService

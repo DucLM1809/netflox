@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 import { PATH } from '../../constants/common'
 import { IUser, IUserRegister } from '../../interfaces/IUser'
 import Toast from '../../components/Toast/Toast'
-import { IApiError } from '../../interfaces/IError'
 import Loading from '../../components/Loading/Loading'
 import AuthService from '../../services/authService'
 
@@ -15,7 +14,7 @@ const Signup = () => {
   const navigate = useNavigate()
 
   // MUTATE
-  const { mutate, isError, isLoading, error, isSuccess } = useMutation({
+  const { mutate, isError, isLoading, isSuccess } = useMutation({
     mutationKey: 'register',
     mutationFn: (variables: IUser) => AuthService.registerUser(variables),
     onSuccess: () => {

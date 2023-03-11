@@ -1,6 +1,6 @@
 export const COOKIES_ITEMS = Object.freeze({
-  ACCESS_TOKEN: 'access_token',
-  REFRESH_TOKEN: 'refresh_token'
+  ACCESS_TOKEN: 'accessToken',
+  REFRESH_TOKEN: 'refreshToken'
 })
 
 export const PATH = Object.freeze({

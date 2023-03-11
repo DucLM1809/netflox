@@ -2,20 +2,19 @@ import axios from 'axios'
 import { authEndpoints } from '../../constants/endpoints'
 import TokenService from '../../services/tokenService'
 import AxiosPut from './axiosPut'
-import getToken from './token'
 
 const axiosClient = axios.create({
   baseURL: `${import.meta.env.VITE_API}`,
   headers: {
-    Accept: 'application/json',
-    'content-type': 'application/json',
-    Pragma: 'no-cache'
-  }
+    'Content-Type': 'application/json'
+  },
+  withCredentials: true
 })
 
 axiosClient.interceptors.request.use(
   (config: any) => {
-    const token = getToken()
+    const token = TokenService.getAccessToken()
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
@@ -39,12 +38,10 @@ axiosClient.interceptors.response.use(
         originalConfig._retry = true
 
         try {
-          const rs = await AxiosPut(authEndpoints.login, {
-            refreshToken: TokenService.getRefreshToken()
-          })
+          const rs = await AxiosPut(authEndpoints.login, {})
 
-          const { accessToken } = rs.data
-          TokenService.updateAccessToken(accessToken)
+          const { access_token } = rs.data
+          TokenService.updateAccessToken(access_token)
 
           return axiosClient(originalConfig)
         } catch (_error) {
