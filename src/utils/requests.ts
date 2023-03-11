@@ -1,5 +1,6 @@
 const API_KEY = import.meta.env.VITE_PUBLIC_API_KEY
 const BASE_URL = import.meta.env.VITE_API
+const END_POINT = import.meta.env.VITE_REST_API
 
 const requests = {
   fetchTrending: `${BASE_URL}/trending/all/week?api_key=${API_KEY}&language=en-US`,
@@ -12,4 +13,8 @@ const requests = {
   fetchDocumentaries: `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&with_genres=99`
 }
 
-export default requests
+const postRequests = {
+  register: `${END_POINT}/auth/users`
+}
+
+export { requests, postRequests }

@@ -25,6 +25,7 @@ export const ROUTES = Object.freeze({
   ],
   PUBLIC: [
     { path: PATH.LOGIN, element: 'LoginPage' },
+    { path: PATH.SIGNUP, element: 'SignupPage' },
     { path: PATH.NOT_FOUND, element: 'NotFoundPage' },
     { path: PATH.FORBIDDEN, element: 'ForbiddenPage' }
   ]

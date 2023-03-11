@@ -1,34 +1,41 @@
 import axios from 'axios'
-import requests from '../utils/requests'
+import { axiosGet, axiosPost } from '../configs/axios'
+import { IUser } from '../interfaces/IUser'
+import { postRequests, requests } from '../utils/requests'
 
-export const getNetflixOriginals = axios
-  .get(requests.fetchNetflixOriginals)
-  .then((res) => res.data.results)
+// GET
+export const getNetflixOriginals = axiosGet(
+  requests.fetchNetflixOriginals
+).then((res) => res.data.results)
 
-export const getTrendings = axios
-  .get(requests.fetchTrending)
-  .then((res) => res.data.results)
+export const getTrendings = axiosGet(requests.fetchTrending).then(
+  (res) => res.data.results
+)
 
-export const getTopRated = axios
-  .get(requests.fetchTopRated)
-  .then((res) => res.data.results)
+export const getTopRated = axiosGet(requests.fetchTopRated).then(
+  (res) => res.data.results
+)
 
-export const getActionMovies = axios
-  .get(requests.fetchActionMovies)
-  .then((res) => res.data.results)
+export const getActionMovies = axiosGet(requests.fetchActionMovies).then(
+  (res) => res.data.results
+)
 
-export const getComedyMovies = axios
-  .get(requests.fetchComedyMovies)
-  .then((res) => res.data.results)
+export const getComedyMovies = axiosGet(requests.fetchComedyMovies).then(
+  (res) => res.data.results
+)
 
-export const getHorrorMovies = axios
-  .get(requests.fetchHorrorMovies)
-  .then((res) => res.data.results)
+export const getHorrorMovies = axiosGet(requests.fetchHorrorMovies).then(
+  (res) => res.data.results
+)
 
-export const getRomanceMovies = axios
-  .get(requests.fetchRomanceMovies)
-  .then((res) => res.data.results)
+export const getRomanceMovies = axiosGet(requests.fetchRomanceMovies).then(
+  (res) => res.data.results
+)
 
-export const getDocumentaries = axios
-  .get(requests.fetchDocumentaries)
-  .then((res) => res.data.results)
+export const getDocumentaries = axiosGet(requests.fetchDocumentaries).then(
+  (res) => res.data.results
+)
+
+// POST
+export const registerUser = (data: IUser) =>
+  axiosPost(postRequests.register, { ...data }).then((res) => res.data)

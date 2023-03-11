@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "copy .env.development .env && vite",
+    "build": "cp .env.production .env && tsc && vite build",
+    "build-vercel": "cp .env.development .env && tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -19,6 +20,7 @@
     "antd": "^5.2.1",
     "autoprefixer": "^10.4.13",
     "axios": "^1.3.2",
+    "js-cookie": "^3.0.1",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.40",
     "postcss": "^8.4.21",
