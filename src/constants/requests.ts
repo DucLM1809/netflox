@@ -1,3 +1,5 @@
+import { authEndpoints } from './endpoints'
+
 const API_KEY = import.meta.env.VITE_PUBLIC_API_KEY
 const BASE_URL = import.meta.env.VITE_API
 const END_POINT = import.meta.env.VITE_REST_API
@@ -14,7 +16,8 @@ const requests = {
 }
 
 const postRequests = {
-  register: `${END_POINT}/auth/users`
+  register: `${END_POINT}${authEndpoints.register}`,
+  login: `${END_POINT}${authEndpoints.login}`
 }
 
 export { requests, postRequests }

@@ -8,3 +8,8 @@ export interface IUser {
   email: string
   password: string
 }
+
+export interface IToken {
+  access_token: string
+  refresh_token: string
+}
