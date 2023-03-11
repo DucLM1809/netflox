@@ -65,10 +65,6 @@ const Login = () => {
                 minLength: {
                   value: 8,
                   message: 'Password must have at least 8 characters'
-                },
-                maxLength: {
-                  value: 12,
-                  message: 'Password must have at most 12 characters'
                 }
               })}
             />

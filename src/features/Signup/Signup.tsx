@@ -1,27 +1,46 @@
 import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { useMutation } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { PATH } from '../../constants/common'
-
-interface Inputs {
-  email: string
-  password: string
-  confirmPassword: string
-}
+import { IUserRegister } from '../../interfaces/IUser'
+import { registerUser } from '../../api/api'
+import Toast from '../../components/Toast/Toast'
+import { IApiError } from '../../interfaces/IError'
+import Loading from '../../components/Loading/Loading'
 
 const Signup = () => {
   const navigate = useNavigate()
+  const {
+    mutate: mutateRegister,
+    isError,
+    isLoading,
+    error,
+    isSuccess
+  } = useMutation({
+    mutationKey: 'register',
+    mutationFn: (variables: IUserRegister) => registerUser(variables),
+    onError: (err: IApiError) => {}
+  })
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch
-  } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {}
+  } = useForm<IUserRegister>()
+  const onSubmit: SubmitHandler<IUserRegister> = (values: IUserRegister) => {
+    mutateRegister(values)
+  }
+
+  isLoading && <Loading />
 
   return (
     <div className='relative flex h-screen w-screen flex-col bg-black md:items-center md:justify-center md:bg-transparent'>
+      {isError && <Toast severity='error' message={error.message} />}
+      {isSuccess && (
+        <Toast severity='success' message='Register Successfully!' />
+      )}
       <img
         src='https://rb.gy/p2hphi'
         className='-z-10 !hidden opacity-60 sm:!inline object-cover h-full w-full'
@@ -68,10 +87,6 @@ const Signup = () => {
                 minLength: {
                   value: 8,
                   message: 'Password must have at least 8 characters'
-                },
-                maxLength: {
-                  value: 12,
-                  message: 'Password must have at most 12 characters'
                 }
               })}
             />
