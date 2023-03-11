@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { PATH } from '../../constants/common'
 
 interface Inputs {
   email: string
   password: string
+  confirmPassword: string
 }
 
-const Login = () => {
+const Signup = () => {
   const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -34,7 +36,7 @@ const Login = () => {
         onSubmit={handleSubmit(onSubmit)}
         className='absolute mt-24 space-y-8 rounded bg-black/75 w-full py-10 px-6 md:mt-0 md:max-w-md md:px-14'
       >
-        <h1 className='text-4xl font-semibold text-white'>Sign In</h1>
+        <h1 className='text-4xl font-semibold text-white'>Sign Up</h1>
         <div className='space-y-4'>
           <label className='inline-block w-full'>
             <input
@@ -62,22 +64,38 @@ const Login = () => {
               </p>
             )}
           </label>
+          <label className='inline-block w-full'>
+            <input
+              type='password'
+              placeholder='Confirm Password'
+              className='input'
+              {...register('password', { required: true })}
+            />
+            {errors.password && (
+              <p className='p-1 text-[13px] font-light  text-orange-500'>
+                Your password must contain between 4 and 60 characters.
+              </p>
+            )}
+          </label>
         </div>
 
         <button
           type='submit'
           className='w-full rounded bg-[#e50914] py-3 font-semibold'
         >
-          Sign In
+          Sign Up
         </button>
 
         <div className='text-[gray]'>
-          New to Netflix? {''}
+          Already have account? {''}
           <button
             className='text-white hover:underline'
-            onClick={() => navigate(PATH.SIGNUP)}
+            onClick={(e: React.SyntheticEvent | Event) => {
+              e.preventDefault()
+              navigate(PATH.LOGIN)
+            }}
           >
-            Sign up now
+            Login
           </button>
         </div>
       </form>
@@ -85,4 +103,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Signup

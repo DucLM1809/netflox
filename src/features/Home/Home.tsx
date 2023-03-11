@@ -12,6 +12,7 @@ import {
 } from '../../api/api'
 import Banner from '../../components/Banner/Banner'
 import Header from '../../components/Header/Header'
+import Loading from '../../components/Loading/Loading'
 import ModalMovie from '../../components/Modal/ModalMovie'
 import Row from '../../components/Row/Row'
 import { useAppSelector } from '../../hooks/useAppSelector'
@@ -78,7 +79,7 @@ const Home = () => {
     isLoadingTrending ||
     isLoadingNetflixOriginal
   )
-    return <>Loading...</>
+    return <Loading />
 
   if (
     errorActionMovies ||
