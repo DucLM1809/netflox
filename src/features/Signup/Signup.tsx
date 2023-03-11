@@ -22,7 +22,10 @@ const Signup = () => {
   } = useMutation({
     mutationKey: 'register',
     mutationFn: (variables: IUser) => registerUser(variables),
-    onError: (err: IApiError) => {}
+    onError: (err: IApiError) => {},
+    onSuccess: () => {
+      navigate(PATH.LOGIN)
+    }
   })
 
   const {
