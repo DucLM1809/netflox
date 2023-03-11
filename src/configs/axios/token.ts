@@ -1,6 +1,7 @@
-import { LOCAL_STORAGE_ITEM } from '../../constants/common'
+import Cookies from 'js-cookie'
+import { COOKIES_ITEMS } from '../../constants/common'
 
-export default function getLocalToken() {
-  const token = window.localStorage.getItem(LOCAL_STORAGE_ITEM.ACCESS_TOKEN)
-  return token
+export default function getToken() {
+  const token = Cookies.get(COOKIES_ITEMS.ACCESS_TOKEN)
+  return !!token
 }

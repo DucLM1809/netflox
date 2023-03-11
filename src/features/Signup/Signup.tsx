@@ -4,25 +4,20 @@ import { useMutation } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { PATH } from '../../constants/common'
 import { IUser, IUserRegister } from '../../interfaces/IUser'
-import { registerUser } from '../../api/api'
 import Toast from '../../components/Toast/Toast'
 import { IApiError } from '../../interfaces/IError'
 import Loading from '../../components/Loading/Loading'
+import AuthService from '../../services/authService'
 
 const Signup = () => {
   const [showPass, setShowPass] = useState<boolean>(false)
   const [showPassConfirm, setShowPassConfirm] = useState<boolean>(false)
   const navigate = useNavigate()
-  const {
-    mutate: mutateRegister,
-    isError,
-    isLoading,
-    error,
-    isSuccess
-  } = useMutation({
+
+  // MUTATE
+  const { mutate, isError, isLoading, error, isSuccess } = useMutation({
     mutationKey: 'register',
-    mutationFn: (variables: IUser) => registerUser(variables),
-    onError: (err: IApiError) => {},
+    mutationFn: (variables: IUser) => AuthService.registerUser(variables),
     onSuccess: () => {
       navigate(PATH.LOGIN)
     }
@@ -34,11 +29,9 @@ const Signup = () => {
     formState: { errors },
     watch
   } = useForm<IUserRegister>()
-  const onSubmit: SubmitHandler<IUserRegister> = (values: IUserRegister) => {
-    mutateRegister({ email: values.email, password: values.password })
+  const onSubmit: SubmitHandler<IUserRegister> = ({ email, password }) => {
+    mutate({ email, password })
   }
-
-  isLoading && <Loading />
 
   const handleShowPass = () => {
     setShowPass((prev: boolean) => !prev)
@@ -48,11 +41,11 @@ const Signup = () => {
     setShowPassConfirm((prev: boolean) => !prev)
   }
 
+  isLoading && <Loading />
+
   return (
     <div className='relative flex h-screen w-screen flex-col bg-black md:items-center md:justify-center md:bg-transparent'>
-      {isError && (
-        <Toast severity='error' message={error.response.data.detail} />
-      )}
+      {isError && <Toast severity='error' message='Email is already taken!' />}
       {isSuccess && (
         <Toast severity='success' message='Register Successfully!' />
       )}
@@ -99,9 +92,10 @@ const Signup = () => {
               className='input'
               {...register('password', {
                 required: 'You must specify a password',
-                minLength: {
-                  value: 8,
-                  message: 'Password must have at least 8 characters'
+                pattern: {
+                  value: /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$/,
+                  message:
+                    'Password must contain at least one lower character, one upper character, digit or special symbol'
                 }
               })}
             />

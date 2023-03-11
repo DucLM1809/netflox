@@ -1,5 +1,6 @@
-export const LOCAL_STORAGE_ITEM = Object.freeze({
-  ACCESS_TOKEN: 'accessToken'
+export const COOKIES_ITEMS = Object.freeze({
+  ACCESS_TOKEN: 'access_token',
+  REFRESH_TOKEN: 'refresh_token'
 })
 
 export const PATH = Object.freeze({
