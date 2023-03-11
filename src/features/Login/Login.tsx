@@ -38,7 +38,7 @@ const Login = () => {
         <div className='space-y-4'>
           <label className='inline-block w-full'>
             <input
-              type='email'
+              type='text'
               placeholder='Email'
               className='input'
               {...register('email', {
