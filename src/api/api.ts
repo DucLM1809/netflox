@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { axiosGet, axiosPost } from '../configs/axios'
-import { IUserRegister } from '../interfaces/IUser'
+import { IUser } from '../interfaces/IUser'
 import { postRequests, requests } from '../utils/requests'
 
 // GET
@@ -37,5 +37,5 @@ export const getDocumentaries = axiosGet(requests.fetchDocumentaries).then(
 )
 
 // POST
-export const registerUser = (data: IUserRegister) =>
+export const registerUser = (data: IUser) =>
   axiosPost(postRequests.register, { ...data }).then((res) => res.data)

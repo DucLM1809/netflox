@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "copy .env.development .env && vite",
     "build": "copy .env.production .env && tsc && vite build",
+    "serve": "yarn dev && serve -s build -p 3001",
     "preview": "vite preview"
   },
   "dependencies": {
