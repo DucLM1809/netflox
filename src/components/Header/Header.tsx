@@ -16,7 +16,11 @@ const Header = () => {
   const { mutate, isError, isLoading, isSuccess } = useMutation({
     mutationKey: 'logout',
     mutationFn: () => AuthService.logoutUser(),
-    onSuccess: () => navigate(PATH.LOGIN)
+    onSuccess: () => {
+      setTimeout(() => {
+        navigate(PATH.LOGIN)
+      }, 500)
+    }
   })
 
   const handleHidden = () => {

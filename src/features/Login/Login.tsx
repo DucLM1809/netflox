@@ -17,7 +17,9 @@ const Login = () => {
     mutationKey: 'login',
     mutationFn: (variables: IUser) => AuthService.loginUser(variables),
     onSuccess: () => {
-      navigate(PATH.HOME)
+      setTimeout(() => {
+        navigate(PATH.HOME)
+      }, 500)
     }
   })
 
@@ -39,9 +41,7 @@ const Login = () => {
   return (
     <div className='relative flex h-screen w-screen flex-col bg-black md:items-center md:justify-center md:bg-transparent'>
       {isError && <Toast severity='error' message='Invalid Credentials!' />}
-      {isSuccess && (
-        <Toast severity='success' message='Register Successfully!' />
-      )}
+      {isSuccess && <Toast severity='success' message='Login Successfully!' />}
       <img
         src='https://rb.gy/p2hphi'
         className='-z-10 !hidden opacity-60 sm:!inline object-cover h-full w-full'
