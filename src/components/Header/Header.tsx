@@ -2,18 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { BellIcon, SearchIcon } from '@heroicons/react/solid'
 import { useMutation } from 'react-query'
 import AuthService from '../../services/authService'
-import { LOCAL_STORAGE_ITEMS } from '../../constants/common'
+import { LOCAL_STORAGE_ITEMS, PATH } from '../../constants/common'
 import Loading from '../Loading/Loading'
 import TokenService from '../../services/tokenService'
 import Toast from '../Toast/Toast'
+import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
   const [hidden, setHidden] = useState<boolean>(true)
+  const navigate = useNavigate()
 
   // MUTATE
   const { mutate, isError, isLoading, isSuccess } = useMutation({
     mutationKey: 'logout',
-    mutationFn: () => AuthService.logoutUser()
+    mutationFn: () => AuthService.logoutUser(),
+    onSuccess: () => navigate(PATH.LOGIN)
   })
 
   const handleHidden = () => {
