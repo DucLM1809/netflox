@@ -10,7 +10,6 @@ import { IApiError } from '../../interfaces/IError'
 import Loading from '../../components/Loading/Loading'
 
 const Signup = () => {
-  // test somthine
   const [showPass, setShowPass] = useState<boolean>(false)
   const [showPassConfirm, setShowPassConfirm] = useState<boolean>(false)
   const navigate = useNavigate()
