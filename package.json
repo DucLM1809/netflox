@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "cp .env.development .env && vite",
+    "dev": "copy .env.development .env && vite",
     "build": "cp .env.production .env && tsc && vite build",
     "build-vercel": "cp .env.development .env && tsc && vite build",
     "preview": "vite preview"
