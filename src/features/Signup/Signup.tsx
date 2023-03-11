@@ -15,7 +15,8 @@ const Signup = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    watch
   } = useForm<Inputs>()
   const onSubmit: SubmitHandler<Inputs> = async ({ email, password }) => {}
 
@@ -43,11 +44,17 @@ const Signup = () => {
               type='email'
               placeholder='Email'
               className='input'
-              {...register('email', { required: true })}
+              {...register('email', {
+                required: 'You must specify an email.',
+                pattern: {
+                  value: /\S+@\S+\.\S+/,
+                  message: 'Invalid email format.'
+                }
+              })}
             />
-            {errors.email && (
+            {errors?.email && (
               <p className='p-1 text-[13px] font-light  text-orange-500'>
-                Please enter a valid email.
+                {errors?.email?.message}
               </p>
             )}
           </label>
@@ -56,11 +63,21 @@ const Signup = () => {
               type='password'
               placeholder='Password'
               className='input'
-              {...register('password', { required: true })}
+              {...register('password', {
+                required: 'You must specify a password',
+                minLength: {
+                  value: 8,
+                  message: 'Password must have at least 8 characters'
+                },
+                maxLength: {
+                  value: 12,
+                  message: 'Password must have at most 12 characters'
+                }
+              })}
             />
-            {errors.password && (
+            {errors?.password && (
               <p className='p-1 text-[13px] font-light  text-orange-500'>
-                Your password must contain between 4 and 60 characters.
+                {errors?.password?.message}
               </p>
             )}
           </label>
@@ -69,11 +86,15 @@ const Signup = () => {
               type='password'
               placeholder='Confirm Password'
               className='input'
-              {...register('password', { required: true })}
+              {...register('confirmPassword', {
+                required: 'You must specify a confirm password',
+                validate: (value) =>
+                  value === watch('password') || 'The passwords do not match'
+              })}
             />
-            {errors.password && (
+            {errors?.confirmPassword && (
               <p className='p-1 text-[13px] font-light  text-orange-500'>
-                Your password must contain between 4 and 60 characters.
+                {errors?.confirmPassword?.message}
               </p>
             )}
           </label>
