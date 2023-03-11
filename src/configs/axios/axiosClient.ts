@@ -7,8 +7,8 @@ const axiosClient = axios.create({
   baseURL: `${import.meta.env.VITE_API}`,
   headers: {
     'Content-Type': 'application/json'
-  },
-  withCredentials: true
+  }
+  // withCredentials: true
 })
 
 axiosClient.interceptors.request.use(
