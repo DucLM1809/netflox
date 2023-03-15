@@ -1,4 +1,3 @@
-import { Modal } from 'antd'
 import {
   ThumbUpIcon,
   VolumeUpIcon,
@@ -6,10 +5,9 @@ import {
   PlusIcon,
   VolumeOffIcon
 } from '@heroicons/react/outline'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import ReactPlayer from 'react-player'
 import MuiModal from '@mui/material/Modal'
-import { Element, Genre } from '../../vite-env'
 import { FaPlay } from 'react-icons/fa'
 import { useAppSelector } from '../../hooks/useAppSelector'
 import {
@@ -22,42 +20,12 @@ import { useAppDispatch } from '../../hooks/useAppDispatch'
 const ModalMovie = () => {
   const showModal = useAppSelector(selectShowModal)
   const [muted, setMuted] = useState(false)
-  const [trailer, setTrailer] = useState('')
-  const [genres, setGenres] = useState<Genre[]>([])
   const movie = useAppSelector(selectCurrentMovie)
   const dispatch = useAppDispatch()
 
   const handleClose = () => {
     dispatch(setShowModal(false))
   }
-
-  useEffect(() => {
-    if (!movie) return
-
-    async function fetchMovie() {
-      const data = await fetch(
-        `https://api.themoviedb.org/3/${
-          movie?.media_type === 'tv' ? 'tv' : 'movie'
-        }/${movie?.id}?api_key=${
-          import.meta.env.VITE_PUBLIC_API_KEY
-        }&language=en-US&append_to_response=videos`
-      )
-        .then((response) => response.json())
-        .catch((err) => console.log(err.message))
-
-      if (data?.videos) {
-        const index = data.videos.results.findIndex(
-          (element: Element) => element.type === 'Trailer'
-        )
-        setTrailer(data.videos?.results[index]?.key)
-      }
-      if (data?.genres) {
-        setGenres(data.genres)
-      }
-    }
-
-    fetchMovie()
-  }, [movie])
 
   return (
     <MuiModal
@@ -75,7 +43,7 @@ const ModalMovie = () => {
 
         <div className='relative pt-[56.25%]'>
           <ReactPlayer
-            url={`https://www.youtube.com/watch?v=${trailer}`}
+            url={movie?.trailerUrl}
             width='100%'
             height='100%'
             style={{ position: 'absolute', top: '0', left: '0' }}
@@ -112,34 +80,30 @@ const ModalMovie = () => {
           <div className='space-y-6 text-lg'>
             <div className='flex items-center space-x-2 text-sm'>
               <p className='font-semibold text-green-400'>
-                {movie!.vote_average * 10}% Match
+                {movie!.voteAverage * 10}% Match
               </p>
-              <p className='font-light text-white'>
-                {movie?.release_date || movie?.first_air_date}
-              </p>
+              <p className='font-light text-white'>{movie?.releaseDate}</p>
               <div className='flex h-4 items-center justify-center rounded border border-white/40 px-1.5 text-xs text-white'>
                 HD
               </div>
             </div>
 
             <div className='flex flex-col gap-x-10 gap-y-4 font-light md:flex-row'>
-              <p className='w-5/6 text-white'>{movie?.overview}</p>
+              <p className='w-5/6 text-white'>{movie?.description}</p>
               <div className='flex flex-col space-y-3 text-sm'>
                 <div>
                   <span className='text-[gray]'>Genres: </span>
-                  <span className='text-white'>
-                    {genres.map((genre) => genre.name).join(', ')}
-                  </span>
+                  <span className='text-white'>{movie?.genres.join(', ')}</span>
                 </div>
 
                 <div>
                   <span className='text-[gray]'>Original language: </span>
-                  <span className='text-white'>{movie?.original_language}</span>
+                  <span className='text-white'>{movie?.originalLanguage}</span>
                 </div>
 
                 <div>
                   <span className='text-[gray]'>Total votes: </span>
-                  <span className='text-white'>{movie?.vote_count}</span>
+                  <span className='text-white'>{movie?.voteAverage}</span>
                 </div>
               </div>
             </div>

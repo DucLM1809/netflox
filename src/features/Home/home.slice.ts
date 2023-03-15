@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../../app/store'
-import { Movie } from '../../vite-env'
+import { IMovies } from '../../interfaces/IMovie'
 
 interface HomeState {
   showModal: boolean
-  currentMovie: Movie | null
+  currentMovie: IMovies | null
 }
 
 const initialState: HomeState = {
