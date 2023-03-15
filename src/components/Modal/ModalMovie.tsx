@@ -16,6 +16,9 @@ import {
   setShowModal
 } from '../../features/Home/home.slice'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
+import { useMutation } from 'react-query'
+import MovieService from '../../services/movieService'
+import Loading from '../Loading/Loading'
 
 const ModalMovie = () => {
   const showModal = useAppSelector(selectShowModal)
@@ -23,9 +26,24 @@ const ModalMovie = () => {
   const movie = useAppSelector(selectCurrentMovie)
   const dispatch = useAppDispatch()
 
+  // MUTATE
+  const { mutate, isError, isSuccess, isLoading } = useMutation({
+    mutationKey: 'tracking',
+    mutationFn: (variables: string) => MovieService.postTracking(variables),
+    onSuccess: () => {
+      handleClose()
+    }
+  })
+
   const handleClose = () => {
     dispatch(setShowModal(false))
   }
+
+  const handleWatchMovie = () => {
+    mutate(movie?.id?.toString() || '')
+  }
+
+  isLoading && <Loading />
 
   return (
     <MuiModal
@@ -52,7 +70,10 @@ const ModalMovie = () => {
           />
           <div className='absolute bottom-10 flex w-full items-center justify-between px-10'>
             <div className='flex space-x-2'>
-              <button className='flex items-center gap-x-2 rounded bg-white px-8 font-bold text-black transition hover:bg-[#e6e6e6]'>
+              <button
+                className='flex items-center gap-x-2 rounded bg-white px-8 font-bold text-black transition hover:bg-[#e6e6e6]'
+                onClick={handleWatchMovie}
+              >
                 <FaPlay className='h-7 w-7 text-black' />
                 Play
               </button>

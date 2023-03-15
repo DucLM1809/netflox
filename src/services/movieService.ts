@@ -9,8 +9,10 @@ const getWatched = () =>
   axiosGet(movieRequests.getWatched).then((res) => res.data)
 const getRecommended = () =>
   axiosGet(movieRequests.getRecommended).then((res) => res.data)
-const postTracking = (params: string) =>
-  axiosPost(`${movieRequests.postTracking}`, {}, params).then((res) => res.data)
+const postTracking = (movie_id: string) =>
+  axiosPost(movieRequests.postTracking, {}, { movie_id }).then(
+    (res) => res.data
+  )
 
 const MovieService = {
   getMovies,
