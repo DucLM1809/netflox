@@ -40,8 +40,8 @@ axiosClient.interceptors.response.use(
         try {
           const rs = await AxiosPut(authEndpoints.login, {})
 
-          const { access_token } = rs.data
-          TokenService.updateAccessToken(access_token)
+          const { accessToken } = rs.data
+          TokenService.updateAccessToken(accessToken)
 
           return axiosClient(originalConfig)
         } catch (_error) {

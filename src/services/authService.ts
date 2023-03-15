@@ -10,7 +10,7 @@ const registerUser = (data: IUser) =>
 const loginUser = (data: IUser) =>
   axiosPost(postRequests.login, { ...data }).then((res) => {
     const dataRes: IToken = res.data
-    TokenService.setAccessToken(dataRes.access_token)
+    TokenService.setAccessToken(dataRes.accessToken)
   })
 
 const logoutUser = () =>
