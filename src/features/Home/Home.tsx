@@ -1,15 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useQuery } from 'react-query'
-import {
-  getActionMovies,
-  getComedyMovies,
-  getDocumentaries,
-  getHorrorMovies,
-  // getNetflixOriginals,
-  getRomanceMovies,
-  getTopRated,
-  getTrendings
-} from '../../services/api'
 import Banner from '../../components/Banner/Banner'
 import Header from '../../components/Header/Header'
 import Loading from '../../components/Loading/Loading'
@@ -37,67 +27,18 @@ const Home = () => {
   const {
     isLoading: isLoadingHistory,
     error: errorHistory,
-    data: dataHistory
+    data: dataHistory,
+    refetch: refetchHistory
   } = useQuery('watched', () => MovieService.getWatched())
-
-  // const {
-  //   isLoading: isLoadingNetflixOriginal,
-  //   error: errorLoadingNetflixOriginal,
-  //   data: netflixOriginals
-  // } = useQuery('netflixOriginals', () => getNetflixOriginals)
-
-  // const {
-  //   isLoading: isLoadingNetflixOriginal,
-  //   error: errorLoadingNetflixOriginal,
-  //   data: netflixOriginals
-  // } = useQuery('netflixOriginals', () => getNetflixOriginals)
-
-  // const {
-  //   isLoading: isLoadingTrending,
-  //   error: errorTrending,
-  //   data: trendingNow
-  // } = useQuery('trendingNow', () => getTrendings)
-
-  // const {
-  //   isLoading: isLoadingTopRated,
-  //   error: errorTopRated,
-  //   data: topRated
-  // } = useQuery('topRated', () => getTopRated)
-
-  // const {
-  //   isLoading: isLoadingActionMovies,
-  //   error: errorActionMovies,
-  //   data: actionMovies
-  // } = useQuery('actionMovies', () => getActionMovies)
-
-  // const {
-  //   isLoading: isLoadingComedyMovies,
-  //   error: errorComedyMovies,
-  //   data: comedyMovies
-  // } = useQuery('comedyMovies', () => getComedyMovies)
-
-  // const {
-  //   isLoading: isLoadingHorrorMovies,
-  //   error: errorHorrorMovies,
-  //   data: horrorMovies
-  // } = useQuery('horrorMovies', () => getHorrorMovies)
-
-  // const {
-  //   isLoading: isLoadingRomanceMovies,
-  //   error: errorRomanceMovies,
-  //   data: romanceMovies
-  // } = useQuery('romanceMovies', () => getRomanceMovies)
-
-  // const {
-  //   isLoading: isLoadingDocumentaries,
-  //   error: errorDocumentaries,
-  //   data: documentaries
-  // } = useQuery('documentaries', () => getDocumentaries)
 
   if (isLoadingTopRated || isLoadingRecommended || isLoadingHistory)
     return <Loading />
 
   if (errorTopRated || errorRecommended || errorHistory) return <>Error...</>
+
+  useEffect(() => {
+    !showModal && refetchHistory()
+  }, [showModal])
 
   return (
     <div className='relative h-screen bg-gradient-to-b lg:h-[140vh] '>
@@ -110,12 +51,6 @@ const Home = () => {
           )}
           <Row title='Recommended' movies={dataRecommended} />
           <Row title='Top Rated' movies={dataTopRated} />
-          {/* My List */}
-
-          {/* <Row title='Comedies' movies={comedyMovies} />
-          <Row title='Scary Movies' movies={horrorMovies} />
-          <Row title='Romance Movies' movies={romanceMovies} />
-          <Row title='Documentaries' movies={documentaries} /> */}
         </section>
       </main>
       {showModal && <ModalMovie />}
