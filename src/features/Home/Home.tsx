@@ -34,6 +34,12 @@ const Home = () => {
     data: dataRecommended
   } = useQuery('recommended', () => MovieService.getRecommended())
 
+  const {
+    isLoading: isLoadingHistory,
+    error: errorHistory,
+    data: dataHistory
+  } = useQuery('recommended', () => MovieService.getWatched())
+
   // const {
   //   isLoading: isLoadingNetflixOriginal,
   //   error: errorLoadingNetflixOriginal,
@@ -88,19 +94,10 @@ const Home = () => {
   //   data: documentaries
   // } = useQuery('documentaries', () => getDocumentaries)
 
-  if (isLoadingTopRated || isLoadingRecommended) return <Loading />
+  if (isLoadingTopRated || isLoadingRecommended || isLoadingHistory)
+    return <Loading />
 
-  // if (
-  //   errorActionMovies ||
-  //   errorComedyMovies ||
-  //   errorHorrorMovies ||
-  //   errorRomanceMovies ||
-  //   errorDocumentaries ||
-  //   errorTopRated ||
-  //   errorTrending ||
-  //   errorLoadingNetflixOriginal
-  // )
-  //   return <>Error...</>
+  if (errorTopRated || errorRecommended || errorHistory) return <>Error...</>
 
   return (
     <div className='relative h-screen bg-gradient-to-b lg:h-[140vh] '>
@@ -108,9 +105,11 @@ const Home = () => {
       <main className='relative pl-4 pb-24 lg:space-y-24 lg:pl-16'>
         <Banner topRated={dataTopRated} />
         <section className='md:space-y-24'>
+          {dataHistory?.length > 0 && (
+            <Row title='History' movies={dataHistory} />
+          )}
           <Row title='Recommended' movies={dataRecommended} />
           <Row title='Top Rated' movies={dataTopRated} />
-          {/* <Row title='Action Thrillers' movies={actionMovies} /> */}
           {/* My List */}
 
           {/* <Row title='Comedies' movies={comedyMovies} />
