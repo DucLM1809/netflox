@@ -38,7 +38,7 @@ const Home = () => {
     isLoading: isLoadingHistory,
     error: errorHistory,
     data: dataHistory
-  } = useQuery('recommended', () => MovieService.getWatched())
+  } = useQuery('watched', () => MovieService.getWatched())
 
   // const {
   //   isLoading: isLoadingNetflixOriginal,
