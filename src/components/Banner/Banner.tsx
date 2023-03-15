@@ -7,19 +7,17 @@ import { setCurrentMovie, setShowModal } from '../../features/Home/home.slice'
 import { IMovies } from '../../interfaces/IMovie'
 
 interface Props {
-  netflixOriginals: IMovies[]
+  topRated: IMovies[]
 }
 
-const Banner = ({ netflixOriginals }: Props) => {
+const Banner = ({ topRated }: Props) => {
   const [movie, setMovie] = useState<IMovies | null>(null)
 
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    setMovie(
-      netflixOriginals[Math.floor(Math.random() * netflixOriginals.length)]
-    )
-  }, [netflixOriginals])
+    setMovie(topRated[Math.floor(Math.random() * topRated.length)])
+  }, [topRated])
 
   return (
     <>

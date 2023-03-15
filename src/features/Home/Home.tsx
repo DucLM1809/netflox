@@ -26,7 +26,7 @@ const Home = () => {
     isLoading: isLoadingTopRated,
     error: errorTopRated,
     data: dataTopRated
-  } = useQuery('netflixOriginals', () => MovieService.getTopRated())
+  } = useQuery('topRated', () => MovieService.getTopRated())
 
   const {
     isLoading: isLoadingRecommended,
@@ -106,7 +106,7 @@ const Home = () => {
     <div className='relative h-screen bg-gradient-to-b lg:h-[140vh] '>
       <Header />
       <main className='relative pl-4 pb-24 lg:space-y-24 lg:pl-16'>
-        <Banner netflixOriginals={dataTopRated} />
+        <Banner topRated={dataTopRated} />
         <section className='md:space-y-24'>
           <Row title='Recommended' movies={dataRecommended} />
           <Row title='Top Rated' movies={dataTopRated} />
