@@ -4,8 +4,6 @@ import { IMovies } from '../../interfaces/IMovie'
 
 interface Props {
   movie: IMovies
-  // When using firebase
-  // movie: Movie | DocumentData;
 }
 
 function Thumbnail({ movie }: Props) {

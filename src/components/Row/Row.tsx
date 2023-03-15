@@ -1,13 +1,11 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 import React, { useRef, useState } from 'react'
-import { Movie } from '../../vite-env'
+import { IMovies } from '../../interfaces/IMovie'
 import Thumbnail from '../Thumbnail/Thumbnail'
 
 interface Props {
   title: string
-  movies: Movie[]
-  // When using firebase
-  // movie: Movie | DocumentData[];
+  movies: IMovies[]
 }
 
 const Row = ({ title, movies }: Props) => {
