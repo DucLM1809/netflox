@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { baseUrl } from '../../constants/common'
 import { Movie } from '../../vite-env'
 import { FaPlay } from 'react-icons/fa'
 import { InformationCircleIcon } from '@heroicons/react/solid'
@@ -26,7 +25,7 @@ const Banner = ({ netflixOriginals }: any) => {
       <div className='absolute top-0 left-0 h-[95vh] w-screen -z-10'>
         <img
           className='object-cover'
-          src={`${baseUrl}${movie?.backdrop_path || movie?.poster_path}`}
+          // src={`${baseUrl}${movie?.backdrop_path || movie?.poster_path}`}
         />
       </div>
       <h1 className='text-2xl font-bold md:text-4xl lg:text-7xl'>

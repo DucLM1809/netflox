@@ -30,5 +30,3 @@ export const ROUTES = Object.freeze({
     { path: PATH.FORBIDDEN, element: 'ForbiddenPage' }
   ]
 })
-
-export const baseUrl = 'https://image.tmdb.org/t/p/original/'
