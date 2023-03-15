@@ -4,13 +4,14 @@ import { FaPlay } from 'react-icons/fa'
 import { InformationCircleIcon } from '@heroicons/react/solid'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { setCurrentMovie, setShowModal } from '../../features/Home/home.slice'
+import { IMovies } from '../../interfaces/IMovie'
 
 interface Props {
-  netflixOriginals: Movie[]
+  netflixOriginals: IMovies[]
 }
 
-const Banner = ({ netflixOriginals }: any) => {
-  const [movie, setMovie] = useState<Movie | null>(null)
+const Banner = ({ netflixOriginals }: Props) => {
+  const [movie, setMovie] = useState<IMovies | null>(null)
 
   const dispatch = useAppDispatch()
 
@@ -23,16 +24,13 @@ const Banner = ({ netflixOriginals }: any) => {
   return (
     <>
       <div className='absolute top-0 left-0 h-[95vh] w-screen -z-10'>
-        <img
-          className='object-cover'
-          // src={`${baseUrl}${movie?.backdrop_path || movie?.poster_path}`}
-        />
+        <img className='object-cover w-full ' src={movie?.backgroundUrl} />
       </div>
       <h1 className='text-2xl font-bold md:text-4xl lg:text-7xl'>
-        {movie?.title || movie?.name || movie?.original_name}
+        {movie?.title}
       </h1>
       <p className='max-w-xs text-shadow-md text-xs md:max-w-lg md:text-lg lg:max-w-2xl lg:text-2xl'>
-        {movie?.overview}
+        {movie?.description}
       </p>
       <div className='flex space-x-3'>
         <button className='bannerButton bg-white text-black'>

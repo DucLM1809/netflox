@@ -1,4 +1,4 @@
-import { authEndpoints } from './endpoints'
+import { authEndpoints, movieEndpoints } from './endpoints'
 
 const API_KEY = import.meta.env.VITE_PUBLIC_API_KEY
 const BASE_URL = import.meta.env.VITE_API
@@ -15,9 +15,17 @@ const requests = {
   fetchDocumentaries: `${BASE_URL}/discover/movie?api_key=${API_KEY}&language=en-US&with_genres=99`
 }
 
-const postRequests = {
+const authRequests = {
   register: `${END_POINT}${authEndpoints.register}`,
   login: `${END_POINT}${authEndpoints.login}`
 }
 
-export { requests, postRequests }
+const movieRequests = {
+  getMovies: `${END_POINT}${movieEndpoints.movies}`,
+  getTopRated: `${END_POINT}${movieEndpoints.topRated}`,
+  getWatched: `${END_POINT}${movieEndpoints.watched}`,
+  getRecommended: `${END_POINT}${movieEndpoints.recommended}`,
+  postTracking: `${END_POINT}${movieEndpoints.tracking}`
+}
+
+export { requests, authRequests, movieRequests }

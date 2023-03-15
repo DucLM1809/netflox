@@ -1,9 +1,9 @@
 import { setCurrentMovie, setShowModal } from '../../features/Home/home.slice'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
-import { Movie } from '../../vite-env'
+import { IMovies } from '../../interfaces/IMovie'
 
 interface Props {
-  movie: Movie
+  movie: IMovies
   // When using firebase
   // movie: Movie | DocumentData;
 }
@@ -20,9 +20,7 @@ function Thumbnail({ movie }: Props) {
       }}
     >
       <img
-        src={`https://image.tmdb.org/t/p/w500${
-          movie.backdrop_path || movie.poster_path
-        }`}
+        src={`${movie.backgroundUrl}`}
         className='rounded-sm object-cover md:rounded'
       />
     </div>

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { axiosGet, axiosPost } from '../configs/axios'
 import { IUser } from '../interfaces/IUser'
-import { postRequests, requests } from '../constants/requests'
+import { authRequests, requests } from '../constants/requests'
 
 // GET
 export const getNetflixOriginals = axios

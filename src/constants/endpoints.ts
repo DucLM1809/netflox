@@ -3,4 +3,12 @@ const authEndpoints = {
   login: '/auth/users/tokens'
 }
 
-export { authEndpoints }
+const movieEndpoints = {
+  movies: '/movies',
+  topRated: '/movies/top_rated',
+  watched: '/movies/watched',
+  recommended: '/movies/recommended',
+  tracking: '/movies/tracking'
+}
+
+export { authEndpoints, movieEndpoints }
