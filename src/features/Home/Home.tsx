@@ -28,6 +28,12 @@ const Home = () => {
     data: dataTopRated
   } = useQuery('netflixOriginals', () => MovieService.getTopRated())
 
+  const {
+    isLoading: isLoadingRecommended,
+    error: errorRecommended,
+    data: dataRecommended
+  } = useQuery('recommended', () => MovieService.getRecommended())
+
   // const {
   //   isLoading: isLoadingNetflixOriginal,
   //   error: errorLoadingNetflixOriginal,
@@ -82,7 +88,7 @@ const Home = () => {
   //   data: documentaries
   // } = useQuery('documentaries', () => getDocumentaries)
 
-  if (isLoadingTopRated) return <Loading />
+  if (isLoadingTopRated || isLoadingRecommended) return <Loading />
 
   // if (
   //   errorActionMovies ||
@@ -102,7 +108,7 @@ const Home = () => {
       <main className='relative pl-4 pb-24 lg:space-y-24 lg:pl-16'>
         <Banner netflixOriginals={dataTopRated} />
         <section className='md:space-y-24'>
-          {/* <Row title='Trending Now' movies={trendingNow} /> */}
+          <Row title='Recommended' movies={dataRecommended} />
           <Row title='Top Rated' movies={dataTopRated} />
           {/* <Row title='Action Thrillers' movies={actionMovies} /> */}
           {/* My List */}
