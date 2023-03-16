@@ -1,16 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { BellIcon, SearchIcon } from '@heroicons/react/solid'
-import { useMutation } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 import AuthService from '../../services/authService'
-import { LOCAL_STORAGE_ITEMS, PATH } from '../../constants/common'
+import { PATH } from '../../constants/common'
 import Loading from '../Loading/Loading'
-import TokenService from '../../services/tokenService'
 import Toast from '../Toast/Toast'
 import { useNavigate } from 'react-router-dom'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select, { SelectChangeEvent } from '@mui/material/Select'
+import MovieService from '../../services/movieService'
+import { IGenres } from '../../interfaces/IMovie'
+import { useDispatch } from 'react-redux'
+import {
+  setIsRefetchMovies,
+  setSelectGenre
+} from '../../features/Home/home.slice'
 
 const Header = () => {
   const [hidden, setHidden] = useState<boolean>(true)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   // MUTATE
   const { mutate, isError, isLoading, isSuccess } = useMutation({
@@ -23,6 +34,11 @@ const Header = () => {
     }
   })
 
+  const { isLoading: isLoadingGenres, data: dataGenres } = useQuery(
+    'genres',
+    () => MovieService.getGenres()
+  )
+
   const handleHidden = () => {
     setHidden((prev: boolean) => !prev)
   }
@@ -31,7 +47,12 @@ const Header = () => {
     mutate()
   }
 
-  isLoading && <Loading />
+  const handleChange = (event: SelectChangeEvent) => {
+    dispatch(setSelectGenre(event.target.value))
+    dispatch(setIsRefetchMovies(true))
+  }
+
+  if (isLoading || isLoadingGenres) return <Loading />
 
   return (
     <header className='bg-[#141414]'>
@@ -55,6 +76,37 @@ const Header = () => {
       </div>
 
       <div className='flex items-center space-x-4 text-sm font-light relative'>
+        <FormControl
+          sx={{
+            m: 1,
+            minWidth: 120,
+            height: '30px',
+            padding: 0,
+            border: 'white',
+            fontSize: '14px'
+          }}
+          size='small'
+        >
+          <InputLabel
+            id='demo-simple-select-label'
+            sx={{ color: 'gray', fontSize: '14px' }}
+          >
+            Genres
+          </InputLabel>
+          <Select
+            labelId='demo-simple-select-label'
+            id='demo-simple-select'
+            // value={age}
+            label='Age'
+            sx={{ color: 'white', fontSize: '14px' }}
+            onChange={handleChange}
+          >
+            {dataGenres.map((genre: IGenres) => (
+              <MenuItem value={genre.name}>{genre.name}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
         <SearchIcon className='hidden sm:inline h-6 w-6' />
         <p className='hidden lg:inline'>Kids</p>
         <BellIcon className='h-6 w-6' />

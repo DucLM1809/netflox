@@ -13,6 +13,7 @@ import { useAppSelector } from '../../hooks/useAppSelector'
 import {
   selectCurrentMovie,
   selectShowModal,
+  setIsRefetchAfterTracking,
   setShowModal
 } from '../../features/Home/home.slice'
 import { useAppDispatch } from '../../hooks/useAppDispatch'
@@ -27,7 +28,7 @@ const ModalMovie = () => {
   const dispatch = useAppDispatch()
 
   // MUTATE
-  const { mutate, isError, isSuccess, isLoading } = useMutation({
+  const { mutate, isError, isSuccess, isLoading, isIdle } = useMutation({
     mutationKey: 'tracking',
     mutationFn: (variables: string) => MovieService.postTracking(variables),
     onSuccess: () => {
@@ -36,6 +37,7 @@ const ModalMovie = () => {
   })
 
   const handleClose = () => {
+    dispatch(setIsRefetchAfterTracking(true))
     dispatch(setShowModal(false))
   }
 

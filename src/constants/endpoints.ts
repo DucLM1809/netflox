@@ -8,7 +8,8 @@ const movieEndpoints = {
   topRated: '/movies/top_rated',
   watched: '/movies/watched',
   recommended: '/movies/recommended',
-  tracking: '/movies/tracking'
+  tracking: '/movies/tracking',
+  genres: '/movies/genres'
 }
 
 export { authEndpoints, movieEndpoints }

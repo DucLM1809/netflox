@@ -10,3 +10,8 @@ export interface IMovies {
   genres: string[]
   originalLanguage: string
 }
+
+export interface IGenres {
+  id: number
+  name: string
+}

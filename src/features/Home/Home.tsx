@@ -6,11 +6,32 @@ import Loading from '../../components/Loading/Loading'
 import ModalMovie from '../../components/Modal/ModalMovie'
 import Row from '../../components/Row/Row'
 import { useAppSelector } from '../../hooks/useAppSelector'
-import { selectShowModal } from './home.slice'
+import {
+  selectIsRefetchAfterTracking,
+  selectIsRefetchMovies,
+  selectSelectGenre,
+  selectShowModal,
+  setIsRefetchAfterTracking,
+  setIsRefetchMovies
+} from './home.slice'
 import MovieService from '../../services/movieService'
+import { useDispatch } from 'react-redux'
 
 const Home = () => {
   const showModal = useAppSelector(selectShowModal)
+  const isRefetchAfterTracking = useAppSelector(selectIsRefetchAfterTracking)
+  const isRefetchMovies = useAppSelector(selectIsRefetchMovies)
+  const selectGenre = useAppSelector(selectSelectGenre)
+  const dispatch = useDispatch()
+
+  const {
+    isLoading: isLoadingMovies,
+    error: errorMovies,
+    data: dataMovies
+  } = useQuery('movies', () => MovieService.getMovies([selectGenre]), {
+    refetchInterval: isRefetchMovies ? 100 : 0,
+    onSettled: () => dispatch(setIsRefetchMovies(false))
+  })
 
   const {
     isLoading: isLoadingTopRated,
@@ -27,18 +48,16 @@ const Home = () => {
   const {
     isLoading: isLoadingHistory,
     error: errorHistory,
-    data: dataHistory,
-    refetch: refetchHistory
-  } = useQuery('watched', () => MovieService.getWatched())
+    data: dataHistory
+  } = useQuery('watched', () => MovieService.getWatched(), {
+    refetchInterval: isRefetchAfterTracking ? 100 : 0,
+    onSettled: () => dispatch(setIsRefetchAfterTracking(false))
+  })
 
   if (isLoadingTopRated || isLoadingRecommended || isLoadingHistory)
     return <Loading />
 
   if (errorTopRated || errorRecommended || errorHistory) return <>Error...</>
-
-  useEffect(() => {
-    !showModal && refetchHistory()
-  }, [showModal])
 
   return (
     <div className='relative h-screen bg-gradient-to-b lg:h-[140vh] '>

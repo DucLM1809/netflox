@@ -25,7 +25,8 @@ const movieRequests = {
   getTopRated: `${END_POINT}${movieEndpoints.topRated}`,
   getWatched: `${END_POINT}${movieEndpoints.watched}`,
   getRecommended: `${END_POINT}${movieEndpoints.recommended}`,
-  postTracking: `${END_POINT}${movieEndpoints.tracking}`
+  postTracking: `${END_POINT}${movieEndpoints.tracking}`,
+  getGenres: `${END_POINT}${movieEndpoints.genres}`
 }
 
 export { requests, authRequests, movieRequests }
