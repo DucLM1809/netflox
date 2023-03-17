@@ -17,6 +17,6 @@ export interface IGenres {
 }
 
 export interface IFilter {
-  genre: string
-  search: string
+  genre?: string
+  search?: string
 }

@@ -14,14 +14,18 @@ import MovieService from '../../services/movieService'
 import { IGenres } from '../../interfaces/IMovie'
 import { useDispatch } from 'react-redux'
 import {
+  selectSearchText,
   setIsRefetchMovies,
   setSearchText,
   setSelectGenre
 } from '../../features/Home/home.slice'
+import { useAppSelector } from '../../hooks/useAppSelector'
 
 const Header = () => {
   const [hidden, setHidden] = useState<boolean>(true)
-  const [searchValue, setSearchValue] = useState<string>('')
+  const [searchValue, setSearchValue] = useState<string>(
+    useAppSelector(selectSearchText)
+  )
   const navigate = useNavigate()
   const dispatch = useDispatch()
 

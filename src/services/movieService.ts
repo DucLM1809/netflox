@@ -4,11 +4,9 @@ import { movieRequests } from '../constants/requests'
 import { IFilter } from '../interfaces/IMovie'
 
 const postMovies = (data: IFilter) =>
-  axiosPost(
-    movieRequests.getMovies,
-    { genres: [data.genre] },
-    { search: data.search }
-  ).then((res) => res.data)
+  axiosPost(movieRequests.getMovies, data.genre && { genres: [data.genre] }, {
+    search: data.search
+  }).then((res) => res.data)
 
 const getTopRated = () =>
   axiosGet(movieRequests.getTopRated).then((res) => res.data)
