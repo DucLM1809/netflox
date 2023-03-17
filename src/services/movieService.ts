@@ -1,11 +1,14 @@
 import { useQuery } from 'react-query'
 import { axiosGet, axiosPost } from '../configs/axios'
 import { movieRequests } from '../constants/requests'
+import { IFilter } from '../interfaces/IMovie'
 
-const getMovies = (data: string[]) =>
-  axiosGet(movieRequests.getMovies, {}, { genres: ['Drama'] }).then(
-    (res) => res.data
-  )
+const postMovies = (data: IFilter) =>
+  axiosPost(
+    movieRequests.getMovies,
+    { genres: [data.genre] },
+    { search: data.search }
+  ).then((res) => res.data)
 
 const getTopRated = () =>
   axiosGet(movieRequests.getTopRated).then((res) => res.data)
@@ -25,7 +28,7 @@ const getGenres = () =>
   axiosGet(movieRequests.getGenres).then((res) => res.data)
 
 const MovieService = {
-  getMovies,
+  postMovies,
   getTopRated,
   getWatched,
   getRecommended,

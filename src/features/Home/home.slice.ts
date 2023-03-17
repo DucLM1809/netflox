@@ -8,6 +8,7 @@ interface HomeState {
   isRefetchAfterTracking: boolean
   selectGenre: string
   isRefetchMovies: boolean
+  searchText: string
 }
 
 const initialState: HomeState = {
@@ -15,7 +16,8 @@ const initialState: HomeState = {
   currentMovie: null,
   isRefetchAfterTracking: false,
   selectGenre: '',
-  isRefetchMovies: false
+  isRefetchMovies: false,
+  searchText: ''
 }
 
 export const homeSlice = createSlice({
@@ -36,6 +38,9 @@ export const homeSlice = createSlice({
     },
     setIsRefetchMovies: (state, action) => {
       state.isRefetchMovies = action.payload
+    },
+    setSearchText: (state, action) => {
+      state.searchText = action.payload
     }
   }
 })
@@ -45,7 +50,8 @@ export const {
   setCurrentMovie,
   setIsRefetchAfterTracking,
   setSelectGenre,
-  setIsRefetchMovies
+  setIsRefetchMovies,
+  setSearchText
 } = homeSlice.actions
 
 export const selectShowModal = (state: RootState) => state.home.showModal
@@ -55,5 +61,6 @@ export const selectIsRefetchAfterTracking = (state: RootState) =>
 export const selectSelectGenre = (state: RootState) => state.home.selectGenre
 export const selectIsRefetchMovies = (state: RootState) =>
   state.home.isRefetchMovies
+export const selectSearchText = (state: RootState) => state.home.searchText
 
 export default homeSlice.reducer

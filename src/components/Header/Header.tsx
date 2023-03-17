@@ -15,11 +15,13 @@ import { IGenres } from '../../interfaces/IMovie'
 import { useDispatch } from 'react-redux'
 import {
   setIsRefetchMovies,
+  setSearchText,
   setSelectGenre
 } from '../../features/Home/home.slice'
 
 const Header = () => {
   const [hidden, setHidden] = useState<boolean>(true)
+  const [searchValue, setSearchValue] = useState<string>('')
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -50,6 +52,12 @@ const Header = () => {
   const handleChange = (event: SelectChangeEvent) => {
     dispatch(setSelectGenre(event.target.value))
     dispatch(setIsRefetchMovies(true))
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<EventTarget>) => {
+    if (e.key === 'Enter') {
+      dispatch(setSearchText(searchValue))
+    }
   }
 
   if (isLoading || isLoadingGenres) return <Loading />
@@ -106,6 +114,15 @@ const Header = () => {
             ))}
           </Select>
         </FormControl>
+
+        <input
+          type='text'
+          placeholder='Avengers...'
+          className='input p-2 m-0 w-36'
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          onKeyDown={handleKeyDown}
+        />
 
         <SearchIcon className='hidden sm:inline h-6 w-6' />
         <p className='hidden lg:inline'>Kids</p>

@@ -15,3 +15,8 @@ export interface IGenres {
   id: number
   name: string
 }
+
+export interface IFilter {
+  genre: string
+  search: string
+}
