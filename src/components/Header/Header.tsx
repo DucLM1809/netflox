@@ -20,6 +20,7 @@ import {
   setSelectGenre
 } from '../../features/Home/home.slice'
 import { useAppSelector } from '../../hooks/useAppSelector'
+import LOGO from '../../assets/logoNetflox.png'
 
 const Header = () => {
   const [hidden, setHidden] = useState<boolean>(true)
@@ -72,7 +73,7 @@ const Header = () => {
       {isSuccess && <Toast severity='success' message='Logout Successfully!' />}
       <div className='flex items-center space-x-2 md:space-x-10'>
         <img
-          src='https://rb.gy/ulxxee'
+          src={LOGO}
           width={100}
           height={100}
           className='cursor-pointer object-contain'

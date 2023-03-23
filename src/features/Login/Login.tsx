@@ -7,6 +7,7 @@ import Toast from '../../components/Toast/Toast'
 import { PATH } from '../../constants/common'
 import { IUser } from '../../interfaces/IUser'
 import AuthService from '../../services/authService'
+import LOGO from '../../assets/logoNetflox.png'
 
 const Login = () => {
   const [showPass, setShowPass] = useState<boolean>(false)
@@ -47,7 +48,7 @@ const Login = () => {
         className='-z-10 !hidden opacity-60 sm:!inline object-cover h-full w-full'
       />
       <img
-        src='https://rb.gy/ulxxee'
+        src={LOGO}
         className='absolute left-4 top-4 cursor-pointer object-contain md:left-10 md:top-6'
         width={150}
         height={150}
